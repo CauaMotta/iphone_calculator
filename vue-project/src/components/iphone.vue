@@ -1,6 +1,18 @@
 <script setup>
 import display from './display.vue';
 import keypad from './keypad.vue';
+import { reactive } from 'vue';
+
+const data = reactive({
+  hours: '',
+})
+setInterval(()=> {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  return data.hours = `${hours}:${minutes}`
+}, 1000)
+
 </script>
 
 <template>
@@ -22,7 +34,7 @@ import keypad from './keypad.vue';
             <div class="mainScreen">
               <div class="statusBar">
                 <div class="leftSide">
-                  <div class="operador">Vivo</div>
+                  <div class="hours">{{ data.hours }}</div>
                   <div class="hora hidden"></div>
                   <div class="widgetPlus"></div>
                 </div>
@@ -33,7 +45,9 @@ import keypad from './keypad.vue';
                   <div class="exitShake">Listo</div>
                 </div>
               </div>
-              <div class="lockScreen">
+              <div class="calc">
+                <display />
+                <keypad />
                 <div class="unlockBar"></div>
               </div>
             </div>
@@ -105,8 +119,8 @@ import keypad from './keypad.vue';
   height: 100%;
   width: 100%;
   background-color: #152839;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: inset 0 0 3px 1px #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 3px 1px #494949;
   border-radius: 45px;
   position: relative;
 }
@@ -291,16 +305,10 @@ import keypad from './keypad.vue';
 }
 
 .iphoneMock .container .iphone .bordeColor .bordeNegro .mainScreen {
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/fotos-3cba1.appspot.com/o/wallpaper.jpg?alt=media&token=059229cc-3823-4d27-834a-7b62cabd69d2");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #000;
   width: calc(100% - 14px);
   height: calc(100% - 14px);
   border-radius: 32px;
-  background-color: #fff;
-  background-color: transparent;
-  background-blend-mode: soft-light;
   position: relative;
   overflow: hidden;
 }
@@ -441,20 +449,20 @@ import keypad from './keypad.vue';
   transform: scale(0);
   overflow: hidden;
 }
-.iphoneMock .container .iphone .bordeColor .bordeNegro .mainScreen .lockScreen {
+.iphoneMock .container .iphone .bordeColor .bordeNegro .mainScreen .calc {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
   align-content: center;
   position: absolute;
   width: 100%;
   height: calc(100% - 25px);
-  padding: 30px;
+  padding: 30px 0 30px 0;
   box-sizing: border-box;
 }
-.iphoneMock .container .iphone .bordeColor .bordeNegro .mainScreen .lockScreen .unlockBar {
+.iphoneMock .container .iphone .bordeColor .bordeNegro .mainScreen .calc .unlockBar {
   position: absolute;
   bottom: 8px;
   width: 40%;

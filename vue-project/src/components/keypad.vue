@@ -1,48 +1,44 @@
 <script setup>
-import { reactive } from 'vue';
+import { defineEmits } from 'vue';
 
-const data = reactive({
-    number: '0',
-})
+const emit = defineEmits(['btnClick']);
 
-function addNumber(number) {
-    data.number += number;
-    console.log(data.number)
-}
-function clearNumber() {
-    data.number = '0';
+function getButton(event) {
+    const buttonId = event.target.id;
+
+    emit('btnClick', buttonId);
 }
 </script>
 
 <template>
     <div class="keypad">
 
-        <button class="key gray" @click="clearNumber()">AC</button>
+        <button class="key gray">AC</button>
         <button class="key gray"><i class="fa-solid fa-plus-minus"></i></button>
         <button class="key gray"><i class="fa-solid fa-percent"></i></button>
         <button class="key orange"><i class="fa-solid fa-divide"></i></button>
 
 
         <!-- Numpad -->
-        <button class="key" @click="addNumber(7)">7</button>
-        <button class="key" @click="addNumber(8)">8</button>
-        <button class="key" @click="addNumber(9)">9</button>
+        <button id="7" class="key" @click="getButton">7</button>
+        <button id="8" class="key" @click="getButton">8</button>
+        <button id="9" class="key" @click="getButton">9</button>
         <button class="key orange"><i class="fa-solid fa-xmark"></i></button>
 
 
-        <button class="key" @click="addNumber(4)">4</button>
-        <button class="key" @click="addNumber(5)">5</button>
-        <button class="key" @click="addNumber(6)">6</button>
+        <button id="4" class="key" @click="getButton">4</button>
+        <button id="5" class="key" @click="getButton">5</button>
+        <button id="6" class="key" @click="getButton">6</button>
         <button class="key orange"><i class="fa-solid fa-minus"></i></button>
 
 
-        <button class="key" @click="addNumber(1)">1</button>
-        <button class="key" @click="addNumber(2)">2</button>
-        <button class="key" @click="addNumber(3)">3</button>
+        <button id="1" class="key" @click="getButton">1</button>
+        <button id="2" class="key" @click="getButton">2</button>
+        <button id="3" class="key" @click="getButton">3</button>
         <button class="key orange"><i class="fa-solid fa-plus"></i></button>
 
 
-        <button class="key zero" @click="addNumber(0)">0</button>
+        <button id="0" class="key zero" @click="getButton">0</button>
         <button class="key">,</button>
         <button class="key orange"><i class="fa-solid fa-equals"></i></button>
 
@@ -51,19 +47,23 @@ function clearNumber() {
 
 <style scoped>
 .keypad {
+    width: 100%;
     display: grid;
-    gap: .5rem;
-    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    gap: .75rem;
+    grid-template-columns: repeat(4, auto);
+    padding-bottom: 1.5rem;
 }
 
 .key {
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     border: 0;
     cursor: pointer;
     background-color: #343434;
     color: #ccc;
+    font-size: 1.25rem;
 }
 
 .zero {
