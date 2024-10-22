@@ -5,6 +5,7 @@ import { reactive } from 'vue';
 
 const data = reactive({
   hours: '',
+  key: '',
 })
 setInterval(()=> {
   const now = new Date();
@@ -12,6 +13,10 @@ setInterval(()=> {
   const minutes = now.getMinutes().toString().padStart(2, '0');
   return data.hours = `${hours}:${minutes}`
 }, 1000)
+
+function getKey(e){
+  data.key = e;
+}
 
 </script>
 
@@ -46,8 +51,8 @@ setInterval(()=> {
                 </div>
               </div>
               <div class="calc">
-                <display />
-                <keypad />
+                <display :define-key="data.key" @reset-key="getKey"/>
+                <keypad @btn-click="getKey" />
                 <div class="unlockBar"></div>
               </div>
             </div>
