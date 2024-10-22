@@ -51,7 +51,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="keypad" @keydown="captureKey">
+    <div class="keypad">
 
         <button id="AC" class="key gray" @click="getButton">AC</button>
         <button id="signal" class="key gray" @click="getButton"><i class="fa-solid fa-plus-minus"></i></button>
